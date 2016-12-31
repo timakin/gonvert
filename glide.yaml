@@ -1,0 +1,9 @@
+package: github.com/timakin/gonvert
+import:
+- package: github.com/k0kubun/pp
+  version: ^2.2.0
+- package: github.com/saintfish/chardet
+- package: golang.org/x/text
+  subpackages:
+  - encoding/japanese
+  - transform

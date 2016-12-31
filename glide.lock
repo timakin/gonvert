@@ -1,0 +1,24 @@
+hash: 6b097cb138733daba2bf8b3e653fc57a0a8dcb89c6a4f7cb5842eaf7c2ad642f
+updated: 2016-12-31T22:48:02.219712741+09:00
+imports:
+- name: github.com/k0kubun/pp
+  version: 36d5366f4ec038f9a76dd85c7b29074089bb9b9e
+- name: github.com/mattn/go-colorable
+  version: 6c903ff4aa50920ca86087a280590b36b3152b9c
+- name: github.com/mattn/go-isatty
+  version: 66b8e73f3f5cda9f96b69efd03dd3d7fc4a5cdb8
+- name: github.com/saintfish/chardet
+  version: 3af4cd4741ca4f3eb0c407c034571a6fb0ea529c
+- name: golang.org/x/sys
+  version: 8f0908ab3b2457e2e15403d3697c9ef5cb4b57a9
+  subpackages:
+  - unix
+- name: golang.org/x/text
+  version: fd889fe3a20f4878f5f47672fd3ca5b86db005e2
+  subpackages:
+  - encoding
+  - encoding/internal
+  - encoding/internal/identifier
+  - encoding/japanese
+  - transform
+testImports: []
