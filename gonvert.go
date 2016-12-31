@@ -18,10 +18,9 @@ var charcodes = map[string]CharCode{
 	"Shift_JIS": SJIS,
 }
 
-func Convert(text string, toCode CharCode) (result string, err error) {
+func New(text string, toCode CharCode) c.Converter {
 	converter := createConverter(text, toCode)
-	result, err = converter.Convert()
-	return
+	return converter
 }
 
 func createConverter(text string, toCode CharCode) c.Converter {

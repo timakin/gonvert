@@ -1,5 +1,5 @@
-hash: 6b097cb138733daba2bf8b3e653fc57a0a8dcb89c6a4f7cb5842eaf7c2ad642f
-updated: 2016-12-31T22:48:02.219712741+09:00
+hash: 672dc71cc8ee1ad3415883abfa69e7b2bd365bda65e7abb3683f85768f0cadb2
+updated: 2017-01-01T00:55:30.237739206+09:00
 imports:
 - name: github.com/k0kubun/pp
   version: 36d5366f4ec038f9a76dd85c7b29074089bb9b9e
@@ -9,6 +9,8 @@ imports:
   version: 66b8e73f3f5cda9f96b69efd03dd3d7fc4a5cdb8
 - name: github.com/saintfish/chardet
   version: 3af4cd4741ca4f3eb0c407c034571a6fb0ea529c
+- name: github.com/stretchr/testify
+  version: 69483b4bd14f5845b5a1e55bca19e954e827f1d0
 - name: golang.org/x/sys
   version: 8f0908ab3b2457e2e15403d3697c9ef5cb4b57a9
   subpackages:
