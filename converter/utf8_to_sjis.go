@@ -7,9 +7,9 @@ import (
 	"strings"
 )
 
-type UTF8ToSjisConverter ConversionPattern
+type UTF8ToSJISConverter ConversionPattern
 
-func (c *UTF8ToSjisConverter) Convert() (string, error) {
+func (c *UTF8ToSJISConverter) Convert() (string, error) {
 	ret, err := ioutil.ReadAll(transform.NewReader(strings.NewReader(c.Text), japanese.ShiftJIS.NewEncoder()))
 	if err != nil {
 		return "", err

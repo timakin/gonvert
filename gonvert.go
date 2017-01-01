@@ -4,6 +4,7 @@ import (
 	"github.com/k0kubun/pp"
 	"github.com/saintfish/chardet"
 	c "github.com/timakin/gonvert/converter"
+	"reflect"
 )
 
 type CharCode int
@@ -24,18 +25,34 @@ type CodePair struct {
 	From, To CharCode
 }
 
+var converterCache = make(map[string]reflect.Type)
+
+var codeConverters = make(map[CodePair]string)
+
 func New(text string, toCode CharCode) c.Converter {
 	converter := createConverter(text, toCode)
 	return converter
 }
 
-func createConverter(text string, toCode CharCode) c.Converter {
-	codeConverters := make(map[CodePair]string)
-	codeConverters[CodePair{SJIS, UTF8}] = "SJISToUTF8Converter"
-	codeConverters[CodePair{UTF8, SJIS}] = "UTF8ToSJISConverter"
-	codeConverters[CodePair{EUCJP, UTF8}] = "EUCJPToUTF8Converter"
-	codeConverters[CodePair{UTF8, EUCJP}] = "UTF8ToEUCJPConverter"
+func prepare() {
+	codeConverters[CodePair{SJIS, UTF8}] = "github.com/timakin/gonvert/converter.SJISToUTF8Converter"
+	codeConverters[CodePair{UTF8, SJIS}] = "github.com/timakin/gonvert/converter.UTF8ToSJISConverter"
+	codeConverters[CodePair{EUCJP, UTF8}] = "github.com/timakin/gonvert/converter.EUCJPToUTF8Converter"
+	codeConverters[CodePair{UTF8, EUCJP}] = "github.com/timakin/gonvert/converter.UTF8ToEUCJPConverter"
 
+	registerConverterCache(c.SJISToUTF8Converter{})
+	registerConverterCache(c.UTF8ToSJISConverter{})
+	registerConverterCache(c.EUCJPToUTF8Converter{})
+	registerConverterCache(c.UTF8ToEUCJPConverter{})
+}
+
+func registerConverterCache(c interface{}) {
+	t := reflect.TypeOf(c)
+	converterCache[t.PkgPath()+"."+t.Name()] = t
+}
+
+func createConverter(text string, toCode CharCode) c.Converter {
+	prepare()
 	charDetector := chardet.NewTextDetector()
 	detectResult, err := charDetector.DetectBest([]byte(text))
 	if err != nil {
@@ -48,7 +65,13 @@ func createConverter(text string, toCode CharCode) c.Converter {
 		converter = &c.DefaultConverter{Text: text}
 	} else {
 		converterStr := codeConverters[CodePair{fromCode, toCode}]
-		pp.Print(converterStr)
+		t, ok := converterCache[converterStr]
+		if !ok {
+			panic("Reflect error")
+		}
+		pp.Print(t)
+		v := reflect.New(t).Interface()
+		pp.Print(v)
 		converter = &c.DefaultConverter{Text: text}
 	}
 
