@@ -39,7 +39,7 @@ func createConverter(text string, toCode CharCode) c.Converter {
 			panic("cannot decode characters")
 		}
 	} else {
-		converter = &c.DefaultConverter{Text: text}
+		converter = &c.UTF8ToSjisConverter{Text: text}
 	}
 
 	return converter
