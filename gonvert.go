@@ -36,6 +36,7 @@ func createConverter(text string, toCode CharCode) c.Converter {
 		pp.Fatal(err)
 	}
 	fromCode := charcodes[detectResult.Charset]
+	pp.Print(fromCode)
 	var converter c.Converter
 
 	codepair := CodePair{fromCode, toCode}
@@ -62,6 +63,7 @@ func createConverter(text string, toCode CharCode) c.Converter {
 			converter = &c.DefaultConverter{Text: text}
 		}
 	}
+	pp.Print(converter)
 
 	return converter
 }
