@@ -1,16 +1,16 @@
 package converter
 
 import (
+	"bytes"
 	"golang.org/x/text/encoding/japanese"
 	"golang.org/x/text/transform"
 	"io/ioutil"
-	"strings"
 )
 
 type UTF8ToEUCJPConverter ConversionPattern
 
 func (c *UTF8ToEUCJPConverter) Convert() (string, error) {
-	ret, err := ioutil.ReadAll(transform.NewReader(strings.NewReader(c.Text), japanese.EUCJP.NewEncoder()))
+	ret, err := ioutil.ReadAll(transform.NewReader(bytes.NewReader(c.TextByte), japanese.EUCJP.NewEncoder()))
 	if err != nil {
 		return "", err
 	}

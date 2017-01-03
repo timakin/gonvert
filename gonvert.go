@@ -31,7 +31,8 @@ func New(text string, toCode CharCode) c.Converter {
 
 func createConverter(text string, toCode CharCode) c.Converter {
 	charDetector := chardet.NewTextDetector()
-	detectResult, err := charDetector.DetectBest([]byte(text))
+	textByte := []byte(text)
+	detectResult, err := charDetector.DetectBest(textByte)
 	if err != nil {
 		pp.Fatal(err)
 	}
@@ -44,26 +45,24 @@ func createConverter(text string, toCode CharCode) c.Converter {
 	switch codepair {
 	case (CodePair{UTF8, SJIS}):
 		{
-			converter = &c.UTF8ToSJISConverter{Text: text}
+			converter = &c.UTF8ToSJISConverter{TextByte: textByte}
 		}
 	case (CodePair{SJIS, UTF8}):
 		{
-			converter = &c.SJISToUTF8Converter{Text: text}
+			converter = &c.SJISToUTF8Converter{TextByte: textByte}
 		}
 	case (CodePair{UTF8, EUCJP}):
 		{
-			converter = &c.UTF8ToEUCJPConverter{Text: text}
+			converter = &c.UTF8ToEUCJPConverter{TextByte: textByte}
 		}
 	case (CodePair{EUCJP, UTF8}):
 		{
-			converter = &c.EUCJPToUTF8Converter{Text: text}
+			converter = &c.EUCJPToUTF8Converter{TextByte: textByte}
 		}
 	default:
 		{
-			converter = &c.DefaultConverter{Text: text}
+			converter = &c.DefaultConverter{TextByte: textByte}
 		}
 	}
-	pp.Print(converter)
-
 	return converter
 }
