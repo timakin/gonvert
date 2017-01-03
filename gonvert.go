@@ -24,22 +24,32 @@ type CodePair struct {
 	From, To CharCode
 }
 
-func New(text string, toCode CharCode) c.Converter {
-	converter := createConverter(text, toCode)
+func New(text string, codes ...CharCode) c.Converter {
+	converter := createConverter(text, codes)
+
 	return converter
 }
 
-func createConverter(text string, toCode CharCode) c.Converter {
-	charDetector := chardet.NewTextDetector()
+func createConverter(text string, codes []CharCode) c.Converter {
 	textByte := []byte(text)
-	detectResult, err := charDetector.DetectBest(textByte)
-	if err != nil {
-		pp.Fatal(err)
+	var fromCode, toCode CharCode
+
+	if len(codes) == 1 {
+		charDetector := chardet.NewTextDetector()
+		detectResult, err := charDetector.DetectBest(textByte)
+		if err != nil {
+			pp.Fatal(err)
+		}
+		fromCode = charcodes[detectResult.Charset]
+		toCode = codes[0]
+	} else if len(codes) >= 2 {
+		toCode = codes[0]
+		fromCode = codes[1]
+	} else {
+		panic("Please specify 1 or 2 character-code arguements.")
 	}
 
-	fromCode := charcodes[detectResult.Charset]
 	var converter c.Converter
-
 	codepair := CodePair{fromCode, toCode}
 
 	switch codepair {
