@@ -17,7 +17,7 @@ const (
 var charcodes = map[string]CharCode{
 	"UTF_8":     UTF8,
 	"Shift_JIS": SJIS,
-	"EUC_JP":    EUCJP,
+	"EUC-JP":    EUCJP,
 }
 
 type CodePair struct {
@@ -36,8 +36,8 @@ func createConverter(text string, toCode CharCode) c.Converter {
 	if err != nil {
 		pp.Fatal(err)
 	}
+
 	fromCode := charcodes[detectResult.Charset]
-	pp.Print(fromCode)
 	var converter c.Converter
 
 	codepair := CodePair{fromCode, toCode}
