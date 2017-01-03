@@ -9,9 +9,9 @@ You can convert without a declaration of `before` encoding.
 go get github.com/timakin/gonvert
 ```
 
-## Support
-- Shift_JIS -> UTF8
-- UTF8 -> Shift_JIS
+## Current Support
+- Shift_JIS <-> UTF8
+- EUC-JP <-> UTF8
 
 ## Usage
 
@@ -23,12 +23,15 @@ import (
     "fmt"
 )
 func main() {
-    converter := gonvert.New()
-    result, err := converter.Convert(/* string */, gonvert.UTF8)
+    // Input a Shift_JIS encoded string
+    sjisStr := "\x8c\x8e\x93\xfa\x82\xcd\x95\x53\x91\xe3\x82\xcc\x89\xdf\x8b" +
+               "\x71\x82\xc9\x82\xb5\x82\xc4\x81\x41\x8d\x73\x82\xa9\x82\xd3" +
+               "\x94\x4e\x82\xe0\x96\x94\x97\xb7\x90\x6c\x96\xe7\x81\x42"
+    converter := gonvert.New(sjisStr, gonvert.UTF8)
+    result, err := converter.Convert()
     if err != nil {
         panic("Failed to convert!")
     }
-    fmt.Print(result) // Output is utf-8 encoded string
+    fmt.Print(result) // It will print out the utf-8 encoded string: "月日は百代の過客にして、行かふ年も又旅人也。"
 }
 ```
-
