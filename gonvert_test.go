@@ -1,12 +1,11 @@
 package gonvert
 
 import (
-	"github.com/saintfish/chardet"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
-var testData = []struct {
+var estimationTestData = []struct {
 	BeforeCode, AfterCode CharCode
 	BeforeText, AfterText string
 }{
@@ -16,27 +15,32 @@ var testData = []struct {
 	{UTF8, EUCJP, "こんにちは、Pythonプログラミング", "\xa4\xb3\xa4\xf3\xa4\xcb\xa4\xc1\xa4\xcf\xa1\xa2Python\xa5\xd7\xa5\xed\xa5\xb0\xa5\xe9\xa5\xdf\xa5\xf3\xa5\xb0"},
 }
 
+var definiteTestData = []struct {
+	BeforeCode, AfterCode CharCode
+	BeforeText, AfterText string
+}{
+	{SJIS, UTF8, "\x82\xb1\x82\xea\x82\xcd\x8a\xbf\x8e\x9a\x82\xc5\x82\xb7\x81B", "これは漢字です。"},
+	{UTF8, SJIS, "これは漢字です。", "\x82\xb1\x82\xea\x82\xcd\x8a\xbf\x8e\x9a\x82\xc5\x82\xb7\x81B"},
+	{EUCJP, UTF8, "\xa4\xb3\xa4\xec\xa4\u03f4\xc1\xbb\xfa\xa4\u01e4\xb9\xa1\xa3", "これは漢字です。"},
+	{UTF8, EUCJP, "これは漢字です。", "\xa4\xb3\xa4\xec\xa4\u03f4\xc1\xbb\xfa\xa4\u01e4\xb9\xa1\xa3"},
+}
+
 func TestConvert(t *testing.T) {
-	for _, data := range testData {
+	for _, data := range estimationTestData {
 		converter := New(data.BeforeText, data.AfterCode)
-
-		charDetector := chardet.NewTextDetector()
-		beforeDetect, err := charDetector.DetectBest([]byte(data.BeforeText))
-		if err != nil {
-			panic(err)
-		}
-		assert.Equal(t, charcodes[beforeDetect.Charset], data.BeforeCode, "before convert")
-
 		result, err := converter.Convert()
 		if err != nil {
 			panic(err)
 		}
-		afterDetect, err := charDetector.DetectBest([]byte(result))
+		assert.Equal(t, result, data.AfterText, "after convert")
+	}
+
+	for _, data := range definiteTestData {
+		converter := New(data.BeforeText, data.AfterCode, data.BeforeCode)
+		result, err := converter.Convert()
 		if err != nil {
 			panic(err)
 		}
-
-		assert.Equal(t, charcodes[afterDetect.Charset], data.AfterCode, "after convert")
 		assert.Equal(t, result, data.AfterText, "after convert")
 	}
 }
