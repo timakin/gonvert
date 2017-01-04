@@ -12,6 +12,7 @@ const (
 	UTF8 CharCode = iota
 	SJIS
 	EUCJP
+	GBK
 )
 
 var charcodes = map[string]CharCode{
@@ -68,6 +69,14 @@ func createConverter(text string, codes []CharCode) c.Converter {
 	case (CodePair{EUCJP, UTF8}):
 		{
 			converter = &c.EUCJPToUTF8Converter{TextByte: textByte}
+		}
+	case (CodePair{UTF8, GBK}):
+		{
+			converter = &c.UTF8ToGBKConverter{TextByte: textByte}
+		}
+	case (CodePair{GBK, UTF8}):
+		{
+			converter = &c.GBKToUTF8Converter{TextByte: textByte}
 		}
 	default:
 		{
