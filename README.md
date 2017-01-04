@@ -1,7 +1,7 @@
 Gonvert
 ====
 
-Simple character-encoding converter with an automatic character detection in Golang.
+Simple character-encoding converter with an automatic character-code detection in Golang.
 You can convert without a declaration of `before` encoding.
 
 ## Install
@@ -14,7 +14,8 @@ go get github.com/timakin/gonvert
 - EUC-JP <-> UTF8
 
 You can specify the character code to encode/decode with gonvert constatants.
-Prepared `const` of codes is following.
+
+Prepared `const` character-code is following.
 
 ```
 const (
@@ -25,6 +26,12 @@ const (
 ```
 
 ## Usage
+
+You can call the converter with 2 or 3 arguements.
+
+If you set 2 variables, gonvert will estimate the code automatically.
+
+But if you already know the code of strings, you should set the third arguements, without an estimation.
 
 ```
 package main
