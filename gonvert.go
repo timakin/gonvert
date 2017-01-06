@@ -74,6 +74,10 @@ func createConverter(text string, codes []CharCode) c.Converter {
 		{
 			converter = &c.SJISToEUCJPConverter{TextByte: textByte}
 		}
+	case (CodePair{EUCJP, SJIS}):
+		{
+			converter = &c.EUCJPToSJISConverter{TextByte: textByte}
+		}
 	case (CodePair{UTF8, GBK}):
 		{
 			converter = &c.UTF8ToGBKConverter{TextByte: textByte}
