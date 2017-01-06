@@ -12,6 +12,7 @@ go get github.com/timakin/gonvert
 ## Current Support
 - Shift_JIS <-> UTF8
 - EUC-JP <-> UTF8
+- Shift_JIS <-> EUC-JP
 - GBK <-> UTF8
 
 You can specify the character code to encode/decode with gonvert constatants.
