@@ -23,10 +23,11 @@ func transformEncoding(rawReader *bytes.Reader, trans transform.Transformer) (st
 	}
 }
 
-func transformEncodingWithMeditation(rawReader *bytes.Reader, decoder transform.Transformer, encoder transfrom.Transformer) (string, error) {
+func transformEncodingWithMeditation(rawReader *bytes.Reader, decoder transform.Transformer, encoder transform.Transformer) (string, error) {
 	decoded, err := ioutil.ReadAll(transform.NewReader(rawReader, decoder))
 	if err == nil {
-		encoded, err := ioutil.ReadAll(transform.NewReader(rawReader, encoder))
+		decodedBytes := []byte(decoded)
+		encoded, err := ioutil.ReadAll(transform.NewReader(bytes.NewReader(decodedBytes), encoder))
 		if err == nil {
 			return string(encoded), nil
 		} else {
