@@ -8,5 +8,5 @@ import (
 type SJISToEUCJPConverter ConversionPattern
 
 func (c *SJISToEUCJPConverter) Convert() (string, error) {
-	return transformEncoding(bytes.NewReader(c.TextByte), japanese.ShiftJIS.NewDecoder(), japanese.EUCJP.NewEncoder())
+	return transformEncodingWithMeditation(bytes.NewReader(c.TextByte), japanese.ShiftJIS.NewDecoder(), japanese.EUCJP.NewEncoder())
 }
