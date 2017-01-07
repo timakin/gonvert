@@ -29,6 +29,7 @@ var definiteTestData = []struct {
 	{UTF8, GBK, "Hello 常用國字標準字體表", "Hello \xb3\xa3\xd3\xc3\x87\xf8\xd7\xd6\x98\xcb\x9c\xca\xd7\xd6\xf3\x77\xb1\xed"},
 }
 
+// Test
 func TestConvert(t *testing.T) {
 	for _, data := range estimationTestData {
 		converter := New(data.BeforeText, data.AfterCode)
@@ -47,4 +48,22 @@ func TestConvert(t *testing.T) {
 		}
 		assert.Equal(t, result, data.AfterText, "after convert")
 	}
+}
+
+func benchmarkConvert(b *testing.B, text string, codes ...CharCode) {
+	for i := 0; i < b.N; i++ {
+		converter := New(text, codes...)
+		converter.Convert()
+	}
+}
+
+// Benchmark
+func BenchmarkEstimation(b *testing.B) {
+	benchmarkConvert(b, estimationTestData[0].BeforeText, estimationTestData[0].AfterCode)
+}
+func BenchmarkConvertWithoutEstimation(b *testing.B) {
+	benchmarkConvert(b, definiteTestData[0].BeforeText, definiteTestData[0].AfterCode)
+}
+func BenchmarkConvertWithMediation(b *testing.B) {
+	benchmarkConvert(b, definiteTestData[3].BeforeText, definiteTestData[3].AfterCode)
 }
