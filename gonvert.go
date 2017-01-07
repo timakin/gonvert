@@ -86,6 +86,14 @@ func createConverter(text string, codes []CharCode) c.Converter {
 		{
 			converter = &c.GBKToUTF8Converter{TextByte: textByte}
 		}
+	case (CodePair{GBK, SJIS}):
+		{
+			converter = &c.GBKToSJISConverter{TextByte: textByte}
+		}
+	case (CodePair{SJIS, GBK}):
+		{
+			converter = &c.SJISToGBKConverter{TextByte: textByte}
+		}
 	default:
 		{
 			converter = &c.DefaultConverter{TextByte: textByte}
