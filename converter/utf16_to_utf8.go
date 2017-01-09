@@ -14,8 +14,8 @@ func (c *UTF16ToUTF8Converter) Convert() (string, error) {
 	ret := &bytes.Buffer{}
 
 	b8buf := make([]byte, 4)
-
-	lb := len(c.TextByte)
+	b := c.TextByte
+	lb := len(b)
 	for i := 0; i < lb; i += 2 {
 		u16s[0] = uint16(b[i]) + (uint16(b[i+1]) << 8)
 		r := utf16.Decode(u16s)

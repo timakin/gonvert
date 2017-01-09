@@ -27,6 +27,10 @@ var definiteTestData = []struct {
 	{UTF8, EUCJP, "これは漢字です。", "\xa4\xb3\xa4\xec\xa4\u03f4\xc1\xbb\xfa\xa4\u01e4\xb9\xa1\xa3"},
 	{GBK, UTF8, "Hello \xb3\xa3\xd3\xc3\x87\xf8\xd7\xd6\x98\xcb\x9c\xca\xd7\xd6\xf3\x77\xb1\xed", "Hello 常用國字標準字體表"},
 	{UTF8, GBK, "Hello 常用國字標準字體表", "Hello \xb3\xa3\xd3\xc3\x87\xf8\xd7\xd6\x98\xcb\x9c\xca\xd7\xd6\xf3\x77\xb1\xed"},
+	{UTF16, UTF8, "S0\x8c0o0\"oW[g0Y0\x020", "これは漢字です。"},
+	{UTF8, UTF16, "これは漢字です。", "S0\x8c0o0\"oW[g0Y0\x020"},
+	{UTF16, UTF8, "0S0\x8c0oo\"[W0g0Y0\x02", "これは漢字です。"},
+	{UTF8, UTF16, "これは漢字です。", "0S0\x8c0oo\"[W0g0Y0\x02"},
 }
 
 // Test

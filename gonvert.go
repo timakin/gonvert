@@ -13,8 +13,7 @@ const (
 	SJIS
 	EUCJP
 	GBK
-	UTF16BE,
-	UTF16LE
+	UTF16
 )
 
 var charcodes = map[string]CharCode{
