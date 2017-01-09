@@ -16,6 +16,7 @@ go get github.com/timakin/gonvert
 - EUC-JP <-> UTF8
 - EUC-JP <-> GBK
 - GBK <-> UTF8
+- UTF8 <-> UTF16
 
 You can specify the character code to encode/decode with gonvert constatants.
 
@@ -27,6 +28,7 @@ const (
 	SJIS
 	EUCJP
 	GBK
+	UTF16
 )
 ```
 
