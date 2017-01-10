@@ -28,7 +28,8 @@ const (
 	SJIS
 	EUCJP
 	GBK
-	UTF16
+	UTF16BE
+	UTF16LE
 )
 ```
 
