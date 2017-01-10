@@ -2,26 +2,17 @@ package converter
 
 import (
 	"bytes"
-	"unicode/utf16"
-	"unicode/utf8"
+	"golang.org/x/text/encoding/unicode"
 )
 
-type UTF16ToUTF8Converter ConversionPattern
+type UTF16BEToUTF8Converter ConversionPattern
 
-func (c *UTF16ToUTF8Converter) Convert() (string, error) {
-	u16s := make([]uint16, 1)
+func (c *UTF16BEToUTF8Converter) Convert() (string, error) {
+	return transformEncoding(bytes.NewReader(c.TextByte), unicode.UTF16(unicode.BigEndian, unicode.IgnoreBOM).NewDecoder())
+}
 
-	ret := &bytes.Buffer{}
+type UTF16LEToUTF8Converter ConversionPattern
 
-	b8buf := make([]byte, 4)
-	b := c.TextByte
-	lb := len(b)
-	for i := 0; i < lb; i += 2 {
-		u16s[0] = uint16(b[i]) + (uint16(b[i+1]) << 8)
-		r := utf16.Decode(u16s)
-		n := utf8.EncodeRune(b8buf, r[0])
-		ret.Write(b8buf[:n])
-	}
-
-	return ret.String(), nil
+func (c *UTF16LEToUTF8Converter) Convert() (string, error) {
+	return transformEncoding(bytes.NewReader(c.TextByte), unicode.UTF16(unicode.LittleEndian, unicode.IgnoreBOM).NewDecoder())
 }

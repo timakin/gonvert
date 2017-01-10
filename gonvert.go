@@ -13,7 +13,8 @@ const (
 	SJIS
 	EUCJP
 	GBK
-	UTF16
+	UTF16BE
+	UTF16LE
 )
 
 var charcodes = map[string]CharCode{
@@ -21,8 +22,8 @@ var charcodes = map[string]CharCode{
 	"Shift_JIS": SJIS,
 	"EUC-JP":    EUCJP,
 	"GBK":       GBK,
-	"UTF-16BE":  UTF16,
-	"UTF-16LE":  UTF16,
+	"UTF-16BE":  UTF16BE,
+	"UTF-16LE":  UTF16LE,
 }
 
 type CodePair struct {
@@ -106,13 +107,21 @@ func createConverter(text string, codes []CharCode) c.Converter {
 		{
 			converter = &c.EUCJPToGBKConverter{TextByte: textByte}
 		}
-	case (CodePair{UTF8, UTF16}):
+	case (CodePair{UTF8, UTF16BE}):
 		{
-			converter = &c.UTF8ToUTF16Converter{TextByte: textByte}
+			converter = &c.UTF8ToUTF16BEConverter{TextByte: textByte}
 		}
-	case (CodePair{UTF16, UTF8}):
+	case (CodePair{UTF16BE, UTF8}):
 		{
-			converter = &c.UTF16ToUTF8Converter{TextByte: textByte}
+			converter = &c.UTF16BEToUTF8Converter{TextByte: textByte}
+		}
+	case (CodePair{UTF8, UTF16LE}):
+		{
+			converter = &c.UTF8ToUTF16LEConverter{TextByte: textByte}
+		}
+	case (CodePair{UTF16LE, UTF8}):
+		{
+			converter = &c.UTF16LEToUTF8Converter{TextByte: textByte}
 		}
 	default:
 		{
