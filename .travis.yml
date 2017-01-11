@@ -2,3 +2,7 @@ language: go
 
 script:
  - go test -v
+
+notifications:
+  email:
+    - timaki.st@gmail.com
