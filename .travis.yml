@@ -1,8 +1,16 @@
 language: go
-
+go:
+- tip
+before_install:
+- go get github.com/axw/gocov/gocov
+- go get github.com/mattn/goveralls
+- if ! go get code.google.com/p/go.tools/cmd/cover; then go get golang.org/x/tools/cmd/cover;
+  fi
 script:
- - go test -v
-
+- $HOME/gopath/bin/goveralls -repotoken $COVERALLS_TOKEN
 notifications:
   email:
-    - timaki.st@gmail.com
+  - timaki.st@gmail.com
+env:
+  global:
+    secure: aQYhSrwslyVcjZiPoSuh2ipxMPw4vdCbynkz5x0ykWrB564vNjj/rFXdKYBq+QqTtaxkzWt0chAPDCcgoHAzh7CDy0NZrmBZ9HOpLe2R4CbmiaRE/wAR2OH+BkBXTcdLK6MuUkSZKWp7udZoIdr/oXbRDj8S+EiEi1/hwkAXuBLHUb6k3d51OHruL1LtEHKnEEO7RoO3WgrWbX3yY814jOowmyIhYvvHMgnX20g0doe7Fl4m0oLknF2Jzq/nZg5F8mG/9ZEIozk//3T9vvSX9T4va/SDWufX2Lfu1+za8sX7IffkUqkbLCR/e7GJiu1pJZPOXFcjwe9wfYS9FUKa4VVxefc1D3diYTrvhsIal2VxMPnTqtiwsUTD1Ug0Lyn1KEpHt5gWxCGdCRr9ko7yL8SB9344oIlk66XWRQFFersLv8f5/0jqFhZwkEZ6aWox3TdPRQ0xJoY48BLWPUEW7HDQQKtPBi67XiaptO5t0/ZgBjBuS9IYg1Mw21jx2FYUQNTQ/MLKIOaYUVNZ3dfKWTOGjW8qHKin5Yzkn2LROyUjNZSzq3T3gH1KEKETMAgD52p3c4gEPM3nv/W3AIwG7j+WuWECF0I7fQOuWimM/kti6xya6Z0GYMUVvRNu2FigD6jlhaz8RUSdiqnJcRfxF9t7kypohWKUTCW15BEXRho=

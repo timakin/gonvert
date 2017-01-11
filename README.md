@@ -5,6 +5,7 @@ Simple character-encoding converter with an automatic character-code detection i
 You can convert without a declaration of `before` encoding.
 
 [![Build Status](https://travis-ci.org/timakin/gonvert.svg?branch=master)](https://travis-ci.org/timakin/gonvert)
+[![Coverage Status](https://coveralls.io/repos/github/timakin/gonvert/badge.svg)](https://coveralls.io/github/timakin/gonvert)
 
 ## Install
 ```
