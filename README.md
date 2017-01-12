@@ -4,6 +4,9 @@ Gonvert
 Simple character-encoding converter with an automatic character-code detection in Golang.
 You can convert without a declaration of a previous encoding.
 
+[![Build Status](https://travis-ci.org/timakin/gonvert.svg?branch=master)](https://travis-ci.org/timakin/gonvert)
+[![Coverage Status](https://coveralls.io/repos/github/timakin/gonvert/badge.svg)](https://coveralls.io/github/timakin/gonvert)
+
 ## Install
 ```
 go get github.com/timakin/gonvert
