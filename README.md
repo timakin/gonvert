@@ -2,7 +2,7 @@ Gonvert
 ====
 
 Simple character-encoding converter with an automatic character-code detection in Golang.
-You can convert without a declaration of `before` encoding.
+You can convert without a declaration of a previous encoding.
 
 ## Install
 ```
